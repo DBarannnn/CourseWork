@@ -1,4 +1,4 @@
-﻿namespace Server.Service
+﻿namespace Server.Service.Implementation
 {
     public class JwtService
     {
