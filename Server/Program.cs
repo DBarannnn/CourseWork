@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Server.Configuration;
+using Server.Service.Implementation;
+using Server.Service.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +14,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DataContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<JwtService>();
 
 var app = builder.Build();
 

@@ -76,3 +76,4 @@ C:\Project\CourseWork\Server\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.Desi
 C:\Project\CourseWork\Server\bin\Debug\net7.0\Microsoft.Extensions.DependencyModel.dll
 C:\Project\CourseWork\Server\bin\Debug\net7.0\Mono.TextTemplating.dll
 C:\Project\CourseWork\Server\bin\Debug\net7.0\System.CodeDom.dll
+C:\Project\CourseWork\Server\bin\Debug\net7.0\BCrypt.Net-Next.dll
