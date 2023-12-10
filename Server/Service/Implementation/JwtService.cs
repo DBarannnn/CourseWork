@@ -12,13 +12,14 @@ namespace Server.Service.Implementation
         {
             List<Claim> claims = new List<Claim>
            {
-               new Claim(ClaimTypes.Role, "User")
+               new Claim(ClaimTypes.Role, "User"),
            };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secureKey));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var securityToken = new JwtSecurityToken(
+                issuer: id.ToString(),
                 claims: claims,
                 expires: DateTime.Now.AddDays(1),
                 signingCredentials: creds

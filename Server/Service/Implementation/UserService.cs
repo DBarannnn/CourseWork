@@ -29,5 +29,7 @@ namespace Server.Service.Implementation
         {
             return _context.Users.FirstOrDefault(u => u.Id == id);
         }
+
+
     }
 }
