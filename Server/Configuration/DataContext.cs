@@ -16,5 +16,6 @@ namespace Server.Configuration
         }
         public DbSet<User> Users { get; set; }
         public DbSet<Request> Requests { get; set; }
+        public DbSet<Todo> Todos { get; set; }
     }
 }

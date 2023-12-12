@@ -7,10 +7,13 @@ namespace Server.Service.Implementation
     public class UserService : IUserService
     {
         private readonly DataContext _context;
+        private readonly JwtService _jwtService;
   
-        public UserService(DataContext dataContext)
+        public UserService(DataContext dataContext, JwtService jwtService)
         {
             _context = dataContext;
+            _jwtService = jwtService;
+
         }
 
         public User Create(User user)
@@ -30,6 +33,7 @@ namespace Server.Service.Implementation
             return _context.Users.FirstOrDefault(u => u.Id == id);
         }
 
+        
 
     }
 }

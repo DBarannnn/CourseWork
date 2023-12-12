@@ -13,5 +13,6 @@ namespace Server.Entity
         public Role Role { get; set; }
         public List<Request>? Requests { get; set; }
 
+        public List<Todo> Todos { get; set; }
     }
 }
