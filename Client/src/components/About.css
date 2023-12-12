@@ -1,0 +1,12 @@
+.about {
+    max-width: 800px;
+    margin: 2em auto;
+    padding: 1em;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+  
+  .about h2 {
+    color: #333;
+  }
+  

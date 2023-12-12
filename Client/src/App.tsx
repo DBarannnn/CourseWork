@@ -7,9 +7,9 @@ import About from './components/About'
 function App() {
 
   const router = createBrowserRouter(createRoutesFromElements(
-    <Route path='/' element={<Layout />}>
+    <Route path='/about' element={<Layout />}>
       <Route index element={<About />}/>
-
+      
     </Route>
   ))
 
