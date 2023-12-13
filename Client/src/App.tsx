@@ -2,14 +2,18 @@ import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } 
 import './App.css'
 import Layout from './components/common/Layout'
 import About from './components/About'
+import Register from './components/Register'
 
 
 function App() {
 
   const router = createBrowserRouter(createRoutesFromElements(
-    <Route path='/about' element={<Layout />}>
+    <Route path='/' element={<Layout />}>
       <Route index element={<About />}/>
-      
+      <Route
+      path='/register' 
+      element={<Register />} 
+      />
     </Route>
   ))
 

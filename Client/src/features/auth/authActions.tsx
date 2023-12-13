@@ -1,20 +1,19 @@
-import axios, { AxiosError } from 'axios';
+// authActions.ts
+
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
 
 const backendURL = 'https://localhost:7043';
 
-interface RegisterUserPayload {
+export interface RegisterUserPayload {
   name: string;
   email: string;
   password: string;
 }
 
-export const registerUser = createAsyncThunk(
+export const registerUser = createAsyncThunk<void, RegisterUserPayload>(
   'auth/register',
-  async (
-    { name, email, password }: RegisterUserPayload,
-    { rejectWithValue }
-  ) => {
+  async ({ name, email, password }) => {
     try {
       const config = {
         headers: {
@@ -28,12 +27,7 @@ export const registerUser = createAsyncThunk(
         config
       );
     } catch (error) {
-      // Return custom error message from the backend if present
-      if (error.response && error.response.data.message) {
-        return rejectWithValue(error.response.data.message);
-      } else {
-        return rejectWithValue(error.message);
-      }
+      throw error;
     }
   }
 );

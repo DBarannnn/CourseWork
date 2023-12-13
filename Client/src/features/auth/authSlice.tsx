@@ -1,18 +1,47 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { combineReducers, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { registerUser } from "./authActions";
 
-const initialState = {
-    loading : false,
-    userInfo : {},
-    userToken : null,
-    error : null,
-    success : false
+interface AuthState {
+  loading: boolean;
+  userInfo: Record<string, unknown>;
+  userToken: string | null;
+  error: string | null;
+  success: boolean;
 }
 
-const authSlice = createSlice({
-    name: "auth",
-    initialState, 
-    reducers: {},
-    
-})
+const initialState: AuthState = {
+  loading: false,
+  userInfo: {},
+  userToken: null,
+  error: null,
+  success: false,
+};
 
-export default authSlice.reducer
+export const authSlice = createSlice({
+  name: "auth",
+  initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      // register user
+      .addCase(registerUser.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(registerUser.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.success = true; // registration successful
+      })
+      .addCase(registerUser.rejected, (state, { payload }) => {
+        state.loading = false;
+        state.error = payload;
+      });
+  },
+});
+
+const rootReducer = combineReducers({
+    auth: authSlice.reducer,
+  });
+
+export type RootState = ReturnType<typeof rootReducer>;
+export default authSlice.reducer;
