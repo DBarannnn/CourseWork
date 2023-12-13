@@ -11,6 +11,12 @@ export interface RegisterUserPayload {
   password: string;
 }
 
+export interface LoginUserPayload{
+    email: string
+    password: string
+}
+
+
 export const registerUser = createAsyncThunk<void, RegisterUserPayload>(
   'auth/register',
   async ({ name, email, password }) => {
@@ -31,3 +37,34 @@ export const registerUser = createAsyncThunk<void, RegisterUserPayload>(
     }
   }
 );
+
+
+
+export const userLogin = createAsyncThunk<void, LoginUserPayload>(
+    'auth/login',
+    async ({ email, password }, { rejectWithValue }) => {
+      try {
+        // configure header's Content-Type as JSON
+        const config = {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+        const { data } = await axios.post(
+          `${backendURL}/api/Auth/login`,
+          { email, password },
+          config
+        )
+        // store user's token in local storage
+        localStorage.setItem('token', data.token)
+        return data
+      } catch (error) {
+        // return custom error message from API if any
+        if (error.response && error.response.data.message) {
+          return rejectWithValue(error.response.data.message)
+        } else {
+          return rejectWithValue(error.message)
+        }
+      }
+    }
+  )

@@ -1,5 +1,5 @@
 import { combineReducers, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { registerUser } from "./authActions";
+import { registerUser, userLogin } from "./authActions";
 
 interface AuthState {
   loading: boolean;
@@ -9,13 +9,19 @@ interface AuthState {
   success: boolean;
 }
 
+const userToken = localStorage.getItem('token')
+  ? localStorage.getItem('token')
+  : null
+
 const initialState: AuthState = {
   loading: false,
   userInfo: {},
-  userToken: null,
+  userToken,
   error: null,
   success: false,
 };
+
+
 
 export const authSlice = createSlice({
   name: "auth",
@@ -33,6 +39,21 @@ export const authSlice = createSlice({
         state.success = true; // registration successful
       })
       .addCase(registerUser.rejected, (state, { payload }) => {
+        state.loading = false;
+        state.error = payload;
+      })
+
+      // user login
+      .addCase(userLogin.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(userLogin.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.userInfo = payload;
+        state.userToken = payload.userToken;
+      })
+      .addCase(userLogin.rejected, (state, { payload }) => {
         state.loading = false;
         state.error = payload;
       });
